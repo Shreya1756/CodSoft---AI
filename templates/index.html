@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="hero">
+        <div class="badge">NLP &bull; TF-IDF &bull; Cosine Similarity</div>
+        <h1>AI RESUME ANALYZER</h1>
+        <p>Analyze your resume against any job description</p>
+    </header>
+
+    <main class="container">
+        {% if error %}
+        <div class="alert">&#9888; {{ error }}</div>
+        {% endif %}
+
+        <form id="analyze-form" class="panel" action="{{ url_for('analyze_resume') }}"
+              method="POST" enctype="multipart/form-data">
+
+            <div class="field">
+                <span class="label">1. Upload Resume (PDF)</span>
+                <label for="resume" class="dropzone" id="dropzone">
+                    <input type="file" id="resume" name="resume" accept=".pdf,application/pdf" required>
+                    <span class="drop-icon">&#128196;</span>
+                    <span class="drop-text"><strong>Click to upload</strong> or drag and drop</span>
+                    <span class="drop-file" id="file-name">No file selected (PDF, max 5 MB)</span>
+                </label>
+            </div>
+
+            <div class="field">
+                <label class="label" for="job_description">2. Paste Job Description</label>
+                <textarea id="job_description" name="job_description" rows="10" required
+                          placeholder="Paste the full job description here...">{{ jd }}</textarea>
+                <div class="counter"><span id="char-count">0</span> characters</div>
+            </div>
+
+            <button type="submit" id="analyze-btn" class="btn">
+                <span id="btn-text">Analyze Resume</span>
+                <span id="spinner" class="spinner hidden"></span>
+            </button>
+        </form>
+
+        <section class="features">
+            <div class="feature"><h3>&#127919; Match Score</h3><p>TF-IDF and cosine similarity compare your resume to the job.</p></div>
+            <div class="feature"><h3>&#128269; Skill Gap</h3><p>See which required skills you have and which are missing.</p></div>
+            <div class="feature"><h3>&#128161; Suggestions</h3><p>Get clear tips to improve your resume.</p></div>
+        </section>
+    </main>
+
+    <footer class="footer">AI Resume Analyzer &middot; Built with Python, Flask &amp; scikit-learn</footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

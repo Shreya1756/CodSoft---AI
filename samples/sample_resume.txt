@@ -1,0 +1,32 @@
+PRIYA SHARMA
+priya.sharma@email.com | +91 98765 43210 | github.com/priyasharma | linkedin.com/in/priyasharma
+
+SUMMARY
+Computer science student interested in machine learning and web development.
+
+EDUCATION
+B.Tech in Computer Science and Engineering, ABC Institute of Technology, 2021 - 2025
+CGPA: 8.4/10
+
+SKILLS
+Languages: Python, Java, SQL, JavaScript
+Web: HTML, CSS, Flask, Bootstrap
+ML and Data: Machine Learning, Pandas, NumPy, scikit-learn, NLP
+Tools: Git, GitHub, MySQL, VS Code
+
+PROJECTS
+Movie Recommendation System
+- Built a content-based recommender using TF-IDF and cosine similarity in Python with scikit-learn.
+- Improved recommendation relevance by 18% after cleaning and preprocessing the text data.
+Student Management System
+- Developed a desktop application using Java and MySQL to manage 500+ student records.
+Portfolio Website
+- Designed a responsive personal website using HTML, CSS and JavaScript.
+
+EXPERIENCE
+Python Developer Intern, XYZ Solutions (Jun 2024 - Aug 2024)
+- Automated data cleaning with Python and Pandas, saving about 5 hours of manual work per week.
+- Created a small Flask web app for internal reporting.
+
+CERTIFICATIONS
+Machine Learning Certification - Coursera

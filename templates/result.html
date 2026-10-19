@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result | AI Resume Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="hero small">
+        <h1>Analysis Dashboard</h1>
+        <p>Here is how your resume matches the job description</p>
+    </header>
+
+    <main class="container wide">
+        <a class="back" href="{{ url_for('index') }}">&larr; Analyze another resume</a>
+
+        <div class="grid">
+
+            <!-- Score -->
+            <div class="card score-card">
+                <h2>Resume Match</h2>
+                <div class="ring" style="--score: {{ r.score }}">
+                    <div class="ring-inner"><span>{{ r.score }}%</span></div>
+                </div>
+                <div class="verdict
+                    {% if r.score >= 75 %}good{% elif r.score >= 50 %}mid{% else %}low{% endif %}">
+                    {{ r.verdict }}
+                </div>
+            </div>
+
+            <!-- Breakdown -->
+            <div class="card">
+                <h2>Score Breakdown</h2>
+                <div class="bar-row">
+                    <div class="bar-label">
+                        <span>Skill Match (60%)</span>
+                        <span>{% if r.skill_score is not none %}{{ r.skill_score }}%{% else %}N/A{% endif %}</span>
+                    </div>
+                    <div class="bar"><div class="bar-fill" style="width: {{ r.skill_score or 0 }}%"></div></div>
+                </div>
+                <div class="bar-row">
+                    <div class="bar-label"><span>Text Similarity - TF-IDF (40%)</span><span>{{ r.text_score }}%</span></div>
+                    <div class="bar"><div class="bar-fill alt" style="width: {{ r.text_score }}%"></div></div>
+                </div>
+                <p class="note">Skill Match = required skills found in your resume.
+                   Text Similarity = TF-IDF + cosine similarity of the whole texts.</p>
+            </div>
+
+            <!-- Matching skills -->
+            <div class="card">
+                <h2>&#9989; Matching Skills</h2>
+                {% if r.matching %}
+                <div class="chips">{% for s in r.matching %}<span class="chip green">{{ s }}</span>{% endfor %}</div>
+                {% else %}<p class="muted">No matching skills found.</p>{% endif %}
+            </div>
+
+            <!-- Missing skills -->
+            <div class="card">
+                <h2>&#10060; Missing Skills</h2>
+                {% if r.missing %}
+                <div class="chips">{% for s in r.missing %}<span class="chip red">{{ s }}</span>{% endfor %}</div>
+                {% else %}<p class="muted">Nothing missing. You cover every skill we detected in the job description.</p>{% endif %}
+            </div>
+
+            <!-- Missing keywords -->
+            <div class="card">
+                <h2>&#128273; Important Keywords Not in Resume</h2>
+                {% if r.keywords %}
+                <div class="chips">{% for k in r.keywords %}<span class="chip orange">{{ k }}</span>{% endfor %}</div>
+                <p class="note">Found with TF-IDF: words that matter in the job description but never appear in your resume.</p>
+                {% else %}<p class="muted">No important keywords missing.</p>{% endif %}
+            </div>
+
+            <!-- Detected skills -->
+            <div class="card">
+                <h2>&#128161; Detected Skills (in your resume)</h2>
+                {% if r.detected %}
+                <div class="chips">{% for s in r.detected %}<span class="chip blue">{{ s }}</span>{% endfor %}</div>
+                {% else %}<p class="muted">No known technical skills detected.</p>{% endif %}
+            </div>
+
+            <!-- Summary -->
+            <div class="card wide-card">
+                <h2>&#128221; Resume Summary</h2>
+                <p>{{ r.summary }}</p>
+            </div>
+
+            <!-- Education -->
+            <div class="card">
+                <h2>&#127891; Education</h2>
+                {% if r.education %}<ul>{% for line in r.education %}<li>{{ line }}</li>{% endfor %}</ul>
+                {% else %}<p class="muted">No education information found.</p>{% endif %}
+            </div>
+
+            <!-- Experience -->
+            <div class="card">
+                <h2>&#128188; Experience</h2>
+                {% if r.years %}<p class="note">Mentions about <strong>{{ r.years }}</strong> year(s) of experience.</p>{% endif %}
+                {% if r.experience %}<ul>{% for line in r.experience %}<li>{{ line }}</li>{% endfor %}</ul>
+                {% else %}<p class="muted">No experience information found.</p>{% endif %}
+            </div>
+
+            <!-- Projects -->
+            <div class="card">
+                <h2>&#128736; Projects</h2>
+                {% if r.projects %}<ul>{% for line in r.projects %}<li>{{ line }}</li>{% endfor %}</ul>
+                {% else %}<p class="muted">No projects found.</p>{% endif %}
+            </div>
+
+            <!-- Suggestions -->
+            <div class="card wide-card">
+                <h2>&#128161; Improvement Suggestions</h2>
+                <ul class="suggestions">
+                    {% for tip in r.suggestions %}<li>{{ tip }}</li>{% endfor %}
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">AI Resume Analyzer &middot; Built with Python, Flask &amp; scikit-learn</footer>
+</body>
+</html>

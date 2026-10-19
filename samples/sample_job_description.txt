@@ -1,0 +1,17 @@
+Machine Learning Intern
+
+We are looking for a Machine Learning Intern to help build text-analysis models for our product team.
+
+Responsibilities:
+- Clean and prepare datasets using Python, Pandas and NumPy
+- Build and evaluate machine learning models using scikit-learn
+- Work on NLP tasks such as text classification and information extraction
+- Create REST APIs with Flask to serve models
+- Write SQL queries to fetch data
+- Use Git for version control and Docker for packaging
+
+Requirements:
+- Good knowledge of Python and basic machine learning concepts
+- Familiarity with NLP techniques
+- Exposure to TensorFlow and AWS is a plus
+- Strong problem solving and communication skills
